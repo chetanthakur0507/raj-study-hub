@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="64" fill="#0a0e14"/>
+  <text x="256" y="220" text-anchor="middle" fill="#d4af37" font-family="Georgia, serif" font-size="72" font-weight="bold">RAJ</text>
+  <text x="256" y="300" text-anchor="middle" fill="#e8e6e1" font-family="Arial, sans-serif" font-size="36">STUDY HUB</text>
+  <rect x="156" y="340" width="200" height="4" fill="#d4af37" rx="2"/>
+</svg>
