@@ -18,8 +18,7 @@ const initialFormData = {
   aadharNo: '',
   address: '',
   exam: '',
-  shift: 'Morning (7AM - 1PM)',
-  seatType: 'Open Study Desk',
+  
 };
 
 const inputClass =
@@ -136,7 +135,7 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
               Welcome to RAJ STUDY HUB, <strong className="text-white">{formData.name}</strong>!
             </p>
             <p className="text-gray-400 mb-4">
-              Your details have been sent via email, WhatsApp, and mobile ({CONTACT.phoneDisplay}). We will contact you at{' '}
+              Your details have been sent. We will contact you at{' '}
               <strong className="text-yellow-400">{formData.mobile}</strong> for seat confirmation.
             </p>
             <p className="text-gray-500 text-sm mb-6">
@@ -293,31 +292,15 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-sm font-bold text-yellow-400 mb-2">Preferred Shift</label>
-              <select name="shift" value={formData.shift} onChange={handleChange} className={inputClass}>
-                <option>Morning (7AM - 1PM)</option>
-                <option>Afternoon (1PM - 4PM)</option>
-                <option>Full Day (7AM - 7PM)</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-bold text-yellow-400 mb-2">Seat Type</label>
-              <select name="seatType" value={formData.seatType} onChange={handleChange} className={inputClass}>
-                <option>Open Study Desk</option>
-                <option>Individual Cabin</option>
-                <option>Premium Cabin</option>
-              </select>
-            </div>
+            
+            
           </div>
 
           {error && (
             <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/30 rounded-lg px-4 py-3">{error}</p>
           )}
 
-          <p className="text-gray-500 text-xs">
-            Submit par details email ({CONTACT.email}), WhatsApp ({CONTACT.phoneDisplay}), aur mobile par bhej di jayengi.
-          </p>
+          
           <motion.button
             type="submit"
             disabled={loading}

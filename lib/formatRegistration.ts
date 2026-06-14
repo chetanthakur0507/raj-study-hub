@@ -12,8 +12,6 @@ export interface RegistrationData {
   aadharNo: string;
   address: string;
   exam: string;
-  shift: string;
-  seatType: string;
   hasPhoto: boolean;
 }
 
@@ -36,8 +34,6 @@ export function formatRegistrationMessage(data: RegistrationData): string {
     '',
     `📚 *Admission Details*`,
     `• Exam/Course: ${data.exam}`,
-    `• Preferred Shift: ${data.shift}`,
-    `• Seat Type: ${data.seatType}`,
     `• Address: ${data.address}`,
     `• Photo Uploaded: ${data.hasPhoto ? 'Yes' : 'No'}`,
     '',
@@ -70,8 +66,6 @@ export function formatRegistrationEmailHtml(data: RegistrationData): string {
       <h3 style="color:#333;">Admission Details</h3>
       <table style="width:100%;border-collapse:collapse;">
         <tr><td style="padding:6px;font-weight:bold;">Exam/Course</td><td style="padding:6px;">${data.exam}</td></tr>
-        <tr style="background:#f9f9f9;"><td style="padding:6px;font-weight:bold;">Preferred Shift</td><td style="padding:6px;">${data.shift}</td></tr>
-        <tr><td style="padding:6px;font-weight:bold;">Seat Type</td><td style="padding:6px;">${data.seatType}</td></tr>
         <tr style="background:#f9f9f9;"><td style="padding:6px;font-weight:bold;">Address</td><td style="padding:6px;">${data.address}</td></tr>
         <tr><td style="padding:6px;font-weight:bold;">Photo Uploaded</td><td style="padding:6px;">${data.hasPhoto ? 'Yes' : 'No'}</td></tr>
       </table>

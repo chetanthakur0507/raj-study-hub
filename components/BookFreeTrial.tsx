@@ -16,6 +16,8 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
+    fatherName: '',
+    fatherMobile: '',
     email: '',
     preferredDate: '',
     message: '',
@@ -26,8 +28,8 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name === 'mobile') {
-      setFormData((prev) => ({ ...prev, mobile: restrictDigits(value, 10) }));
+    if (name === 'mobile' || name === 'fatherMobile') {
+      setFormData((prev) => ({ ...prev, [name]: restrictDigits(value, 10) }));
       return;
     }
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -41,6 +43,10 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
       setError('Mobile number must be exactly 10 digits');
       return;
     }
+    if (formData.fatherMobile.length !== 10) {
+      setError("Father's mobile number must be exactly 10 digits");
+      return;
+    }
 
     setLoading(true);
 
@@ -49,6 +55,8 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
       '',
       `• Name: ${formData.name}`,
       `• Mobile: ${formData.mobile}`,
+      `• Father's Name: ${formData.fatherName}`,
+      `• Father's Mobile: ${formData.fatherMobile}`,
       `• Email: ${formData.email || 'Not provided'}`,
       `• Preferred Date: ${formData.preferredDate}`,
       `• Message: ${formData.message || 'None'}`,
@@ -62,6 +70,8 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
           form_type: 'Book Trial',
           name: formData.name,
           mobile: formData.mobile,
+          fatherName: formData.fatherName,
+          fatherMobile: formData.fatherMobile,
           email: formData.email,
           preferredDate: formData.preferredDate,
           message: formData.message,
@@ -128,7 +138,7 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
             <motion.button
               onClick={() => {
                 setSubmitted(false);
-                setFormData({ name: '', mobile: '', email: '', preferredDate: '', message: '' });
+                setFormData({ name: '', mobile: '', fatherName: '', fatherMobile: '', email: '', preferredDate: '', message: '' });
               }}
               className="text-yellow-400 hover:text-yellow-300 text-sm font-semibold"
               whileHover={{ scale: 1.05 }}
@@ -186,6 +196,27 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
             />
             <p className="text-gray-500 text-xs mt-1">{formData.mobile.length}/10 digits</p>
           </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-bold text-yellow-400 mb-2">Father&apos;s Name *</label>
+              <input type="text" name="fatherName" value={formData.fatherName} onChange={handleChange} required className={inputClass} placeholder="Father / Guardian name" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-yellow-400 mb-2">Father&apos;s Mobile No. *</label>
+              <input
+                type="tel"
+                name="fatherMobile"
+                value={formData.fatherMobile}
+                onChange={handleChange}
+                required
+                maxLength={10}
+                inputMode="numeric"
+                className={inputClass}
+                placeholder="10 digit number only"
+              />
+              <p className="text-gray-500 text-xs mt-1">{formData.fatherMobile.length}/10 digits</p>
+            </div>
+          </div>
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Email Address</label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} placeholder="email@example.com" />
@@ -199,9 +230,7 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
             <textarea name="message" value={formData.message} onChange={handleChange} rows={3} className={`${inputClass} resize-none`} placeholder="Any specific requirements or questions?" />
           </div>
           {error && <p className="text-red-400 text-sm">{error}</p>}
-          <p className="text-gray-500 text-xs">
-            Details will be sent to {CONTACT.email} and WhatsApp {CONTACT.phoneDisplay}.
-          </p>
+         
           <motion.button type="submit" disabled={loading} className="w-full gold-btn py-3.5 text-lg disabled:opacity-60" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             {loading ? 'Booking...' : 'Book My Free Trial'}
           </motion.button>

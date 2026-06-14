@@ -4,12 +4,11 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 const testimonials = [
-  { id: 1, name: 'Rahul Sharma', achievement: 'UPSC Aspirant', quote: 'The peaceful environment and digital attendance system helped me stay consistent with my preparation. RAJ STUDY HUB is truly premium.' },
-  { id: 2, name: 'Priya Verma', achievement: 'NEET Preparation', quote: 'AC, WiFi, charging points — everything I needed was here. The disciplined atmosphere made a huge difference in my focus.' },
-  { id: 3, name: 'Ankit Singh', achievement: 'SSC CGL', quote: 'QR entry and CCTV security gave me peace of mind. I could study without worrying about anything else.' },
-  { id: 4, name: 'Neha Patel', achievement: 'Banking Exams', quote: 'The community of focused learners here motivates me every day. Best decision for my exam preparation.' },
-  { id: 5, name: 'Vikrant Kumar', achievement: 'State PCS', quote: 'Clean, quiet, and well-managed. Nitin Sir has built something special in memory of his father.' },
-  { id: 6, name: 'Divya Singh', achievement: 'CA Foundation', quote: 'Eye-comfort lighting and comfortable seating — I can study for hours without fatigue. Highly recommended!' },
+  { id: 1, name: 'Deependra Upadhyay', achievement: 'UPSC Aspirant', photo: '/review boy 1.jpeg', quote: 'The peaceful environment and digital attendance system helped me stay consistent with my preparation. RAJ STUDY HUB is truly premium.' },
+  { id: 2, name: 'Sanjay', achievement: 'NEET Preparation', photo: '/review boy 2.jpeg', quote: 'AC, WiFi, charging points — everything I needed was here. The disciplined atmosphere made a huge difference in my focus.' },
+  { id: 3, name: 'Prashant', achievement: 'SSC CGL', photo: '/review boy 3.jpeg', quote: 'QR entry and CCTV security gave me peace of mind. I could study without worrying about anything else.' },
+  { id: 4, name: 'Rohit', achievement: 'Banking Exams', photo: '/review boy 4.jpeg', quote: 'The community of focused learners here motivates me every day. Best decision for my exam preparation.' },
+  { id: 5, name: 'prasoon', achievement: 'NEET', photo: '/review boy 5.jpeg', quote: 'Clean, quiet, and well-managed. Nitin Sir has built something special in memory of his father.' },
 ];
 
 export default function SuccessStories({ hideHeader = false }: { hideHeader?: boolean }) {
@@ -37,9 +36,13 @@ export default function SuccessStories({ hideHeader = false }: { hideHeader?: bo
               whileHover={{ y: -5 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-black font-black text-lg">
-                  {t.name.charAt(0)}
-                </div>
+                <img
+                  src={t.photo}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-yellow-400/50"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div>
                   <h3 className="font-bold text-yellow-400">{t.name}</h3>
                   <p className="text-yellow-400/60 text-sm">{t.achievement}</p>

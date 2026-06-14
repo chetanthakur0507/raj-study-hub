@@ -7,12 +7,13 @@ const gallery = [
   { id: 1, category: 'Study Hall', image: '/library.jpeg', title: 'Main Study Hall' },
   { id: 2, category: 'Reading', image: '/library%20environment.jpeg', title: 'Reading Area' },
   { id: 3, category: 'Study Hall', image: '/achievement.jpeg', title: 'Achievement Wall' },
-  { id: 4, category: 'Workspace', image: '/library.jpeg', title: 'Focused Study Zone' },
-  { id: 5, category: 'Library', image: '/library%20environment.jpeg', title: 'Library Interior' },
-  { id: 6, category: 'Reading', image: '/achievement.jpeg', title: 'Quiet Reading Corner' },
+  { id: 9, category: 'Library', image: '/comfortable  sitting.png', title: 'Comfortable Seating' },
+  { id: 4, category: 'Library', image: '/our facilities.png', title: 'Our Facilities' },
+  { id: 5, category: 'Library', image: '/attendance tracking.png', title: 'Attendance Tracking' },
+  { id: 6, category: 'Library', image: '/track daily activity.png', title: 'Tracking Daily Activity' },
   { id: 7, category: 'Study Hall', image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop&q=80', title: 'Premium Study Space' },
-  { id: 8, category: 'Workspace', image: 'https://images.unsplash.com/photo-1497633481100-f3ad39e0b94d?w=600&h=400&fit=crop&q=80', title: 'Comfortable Seating' },
-  { id: 9, category: 'Library', image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop&q=80', title: 'Book Collection Area' },
+  { id: 8, category: 'Workspace', image: 'https://images.unsplash.com/photo-1664560724581-e3b068a0a376?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGNvbWZvcnRhYmxlJTIwY2hhaXJ8ZW58MHx8MHx8fDA%3D', title: 'Comfortable Seating' },
+  
 ];
 
 export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }) {

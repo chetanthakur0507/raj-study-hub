@@ -9,8 +9,8 @@ export const CONTACT = {
   address: 'Near Panchayat Ghar, Dhakia',
   phone: '+918006013014',
   phoneDisplay: '+91 8006013014',
-  whatsapp: '918006013014',
-  email: 'contact@rajstudyhub.com',
+  whatsapp: '916399813014',
+  email: 'nitinkumarsingh800@gmail.com',
   timings: '07:00 - 19:00',
   mapEmbed:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d648.3069769329186!2d78.97031190398488!3d28.462057533664993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ac7b0683969cf%3A0x2e5e4432d33883bb!2sRAJ%20STUDY%20HUB!5e1!3m2!1sen!2sin!4v1781367940995!5m2!1sen!2sin',
@@ -53,5 +53,5 @@ export const HERO_SLIDES = [
   '/achievement.jpeg',
   'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1920&h=1080&fit=crop&q=80',
   'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1497633481100-f3ad39e0b94d?w=1920&h=1080&fit=crop&q=80',
+  '/comfortable  sitting.png',
 ];

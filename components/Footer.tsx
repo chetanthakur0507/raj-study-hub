@@ -79,6 +79,16 @@ export default function Footer() {
                   💬 WhatsApp
                 </a>
               </li>
+               <li>
+                <a
+                  href={`https://www.instagram.com/rajstudyhub?igsh=NmV4OWZtZTEzcHY=`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400 transition"
+                >
+                   ♾️ Instagram
+                </a>
+              </li>
               <li>
                 <a href={`mailto:${CONTACT.email}`} className="hover:text-yellow-400 transition">
                   📧 {CONTACT.email}
@@ -93,6 +103,8 @@ export default function Footer() {
           <p>
             &copy; {currentYear} {SITE.name}. All rights reserved. | Dedicated to Shri Raj Kumar Singh
           </p>
+          <p> Website is designed and developed by  <a href="https://chetanthakur.tech" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:underline">Chetan Thakur</a></p>
+          
         </div>
       </div>
     </motion.footer>
