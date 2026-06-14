@@ -12,16 +12,18 @@ const testimonials = [
   { id: 6, name: 'Divya Singh', achievement: 'CA Foundation', quote: 'Eye-comfort lighting and comfortable seating — I can study for hours without fatigue. Highly recommended!' },
 ];
 
-export default function SuccessStories() {
+export default function SuccessStories({ hideHeader = false }: { hideHeader?: boolean }) {
   return (
     <section className="section-padding bg-gradient-to-b from-[#0a0e14] to-[#141c28]">
       <div className="max-w-6xl mx-auto">
-        <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">STUDENT ACHIEVEMENTS</p>
-          <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Success Stories</h2>
-          <p className="text-gray-300">Real experiences from our study community</p>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
-        </motion.div>
+        {!hideHeader && (
+          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">STUDENT ACHIEVEMENTS</p>
+            <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Success Stories</h2>
+            <p className="text-gray-300">Real experiences from our study community</p>
+            <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
+          </motion.div>
+        )}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (

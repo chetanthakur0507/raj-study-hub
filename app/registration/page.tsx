@@ -17,7 +17,7 @@ export default function RegistrationPage() {
         subtitle="Join our premium study community"
         image={IMAGES.reading}
       />
-      <RegistrationForm />
+      <RegistrationForm hideHeader />
     </PageLayout>
   );
 }

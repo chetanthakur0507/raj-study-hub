@@ -18,17 +18,19 @@ const faqData = [
   { id: 10, question: 'How can I register for membership?', answer: 'Fill out the Registration Form on our website or visit us directly. Our team will guide you through the admission process.' },
 ];
 
-export default function FAQ() {
+export default function FAQ({ hideHeader = false }: { hideHeader?: boolean }) {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   return (
     <section className="section-padding bg-gradient-to-b from-[#141c28] to-[#0a0e14]">
       <div className="max-w-4xl mx-auto">
-        <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">FAQ</p>
-          <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Frequently Asked Questions</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
-        </motion.div>
+        {!hideHeader && (
+          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">FAQ</p>
+            <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Frequently Asked Questions</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
+          </motion.div>
+        )}
 
         <div className="space-y-3">
           {faqData.map((faq) => (

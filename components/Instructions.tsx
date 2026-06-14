@@ -27,23 +27,25 @@ const rules = [
   { title: 'Focus on Your Goals', hindi: 'यह स्थान गंभीर और समर्पित छात्रों के लिए बनाया गया है। अपने लक्ष्य पर ध्यान केंद्रित रखें।' },
 ];
 
-export default function Instructions() {
+export default function Instructions({ hideHeader = false }: { hideHeader?: boolean }) {
   return (
     <section className="section-padding bg-gradient-to-b from-[#141c28] to-[#0a0e14]">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">GUIDELINES</p>
-          <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-2">
-            Student Instructions & Guidelines
-          </h2>
-          <p className="text-gray-400">(छात्र निर्देश एवं नियम)</p>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
-        </motion.div>
+        {!hideHeader && (
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">GUIDELINES</p>
+            <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-2">
+              Student Instructions & Guidelines
+            </h2>
+            <p className="text-gray-400">(छात्र निर्देश एवं नियम)</p>
+            <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
+          </motion.div>
+        )}
 
         <div className="space-y-4">
           {rules.map((rule, index) => (

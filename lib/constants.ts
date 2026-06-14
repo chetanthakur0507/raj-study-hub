@@ -34,13 +34,24 @@ export const NAV_LINKS = [
   { name: 'FAQ', href: '/faq' },
 ];
 
+export const LOGO = '/logo.png';
+
 export const IMAGES = {
-  hero: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1920&h=1080&fit=crop&q=80',
-  about1: 'https://images.unsplash.com/photo-1507842217343-583f7270bfba?w=800&h=600&fit=crop&q=80',
-  about2: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop&q=80',
-  study: 'https://images.unsplash.com/photo-1497633481100-f3ad39e0b94d?w=800&h=600&fit=crop&q=80',
-  library: 'https://images.unsplash.com/photo-1524995997473-0c6e9a686497?w=800&h=600&fit=crop&q=80',
-  workspace: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop&q=80',
-  reading: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&h=600&fit=crop&q=80',
-  focus: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop&q=80',
+  hero: '/library.jpeg',
+  about1: '/library%20environment.jpeg',
+  about2: '/achievement.jpeg',
+  study: '/library.jpeg',
+  library: '/library%20environment.jpeg',
+  workspace: '/achievement.jpeg',
+  reading: '/library.jpeg',
+  focus: '/library%20environment.jpeg',
 };
+
+export const HERO_SLIDES = [
+  '/library.jpeg',
+  '/library%20environment.jpeg',
+  '/achievement.jpeg',
+  'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1920&h=1080&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1497633481100-f3ad39e0b94d?w=1920&h=1080&fit=crop&q=80',
+];

@@ -17,7 +17,7 @@ export default function AmenitiesPage() {
         subtitle="Comfort, convenience, security, and a distraction-free atmosphere"
         image={IMAGES.study}
       />
-      <Amenities />
+      <Amenities hideHeader />
     </PageLayout>
   );
 }

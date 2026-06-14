@@ -17,7 +17,7 @@ export default function InstructionsPage() {
         subtitle="छात्र निर्देश एवं नियम — Student Rules"
         image={IMAGES.focus}
       />
-      <Instructions />
+      <Instructions hideHeader />
     </PageLayout>
   );
 }

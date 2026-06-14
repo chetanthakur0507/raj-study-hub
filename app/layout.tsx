@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   keywords: ['study library', 'RAJ STUDY HUB', 'Dhakia', 'reading room', 'competitive exam'],
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+    shortcut: '/logo.png',
+  },
 };
 
 export default function RootLayout({

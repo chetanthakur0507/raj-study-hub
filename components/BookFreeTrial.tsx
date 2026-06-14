@@ -2,9 +2,17 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { BOOKMISEAT } from '@/lib/constants';
+import { BOOKMISEAT, CONTACT, SITE } from '@/lib/constants';
+import { notifyOwnerWhatsApp, submitToFormSubmit } from '@/lib/formSubmit';
 
-export default function BookFreeTrial() {
+const inputClass =
+  'w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none';
+
+function restrictDigits(value: string, maxLen: number) {
+  return value.replace(/\D/g, '').slice(0, maxLen);
+}
+
+export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boolean }) {
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
@@ -13,14 +21,60 @@ export default function BookFreeTrial() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    if (name === 'mobile') {
+      setFormData((prev) => ({ ...prev, mobile: restrictDigits(value, 10) }));
+      return;
+    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError('');
+
+    if (formData.mobile.length !== 10) {
+      setError('Mobile number must be exactly 10 digits');
+      return;
+    }
+
+    setLoading(true);
+
+    const whatsappMessage = [
+      `📅 *New Trial Booking — ${SITE.name}*`,
+      '',
+      `• Name: ${formData.name}`,
+      `• Mobile: ${formData.mobile}`,
+      `• Email: ${formData.email || 'Not provided'}`,
+      `• Preferred Date: ${formData.preferredDate}`,
+      `• Message: ${formData.message || 'None'}`,
+      '',
+      `📅 ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+    ].join('\n');
+
+    try {
+      await submitToFormSubmit(
+        {
+          form_type: 'Book Trial',
+          name: formData.name,
+          mobile: formData.mobile,
+          email: formData.email,
+          preferredDate: formData.preferredDate,
+          message: formData.message,
+        },
+        `Trial Booking — ${formData.name} | ${SITE.name}`
+      );
+      notifyOwnerWhatsApp(whatsappMessage);
+      setSubmitted(true);
+    } catch {
+      setError('Booking failed. Please contact us on WhatsApp.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -32,16 +86,12 @@ export default function BookFreeTrial() {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            <motion.div
-              className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl text-green-400">✓</span>
-            </motion.div>
+            </div>
             <h2 className="text-3xl font-black text-yellow-400 mb-4">Trial Booked Successfully!</h2>
             <p className="text-gray-300 mb-2">
-              Thank you, <strong className="text-white">{formData.name}</strong>! We have received your trial booking request.
+              Thank you, <strong className="text-white">{formData.name}</strong>! Your request was sent via email & WhatsApp.
             </p>
             <p className="text-gray-400 mb-8">
               Our team will contact you at <strong className="text-yellow-400">{formData.mobile}</strong> to confirm your visit.
@@ -94,19 +144,21 @@ export default function BookFreeTrial() {
   return (
     <section className="section-padding bg-gradient-to-b from-[#0a0e14] to-[#141c28]">
       <div className="max-w-2xl mx-auto">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">START YOUR JOURNEY</p>
-          <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Book Free Trial</h2>
-          <p className="text-gray-300">
-            Experience our facilities firsthand and discover how the right environment can make a difference in your preparation journey.
-          </p>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
-        </motion.div>
+        {!hideHeader && (
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">START YOUR JOURNEY</p>
+            <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Book Free Trial</h2>
+            <p className="text-gray-300">
+              Experience our facilities firsthand and discover how the right environment can make a difference in your preparation journey.
+            </p>
+            <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
+          </motion.div>
+        )}
 
         <motion.form
           onSubmit={handleSubmit}
@@ -117,26 +169,41 @@ export default function BookFreeTrial() {
         >
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Full Name *</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none" placeholder="Enter your full name" />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required className={inputClass} placeholder="Enter your full name" />
           </div>
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Mobile Number *</label>
-            <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} required pattern="[0-9]{10}" className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none" placeholder="10 digit mobile number" />
+            <input
+              type="tel"
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleChange}
+              required
+              maxLength={10}
+              inputMode="numeric"
+              className={inputClass}
+              placeholder="10 digit mobile number"
+            />
+            <p className="text-gray-500 text-xs mt-1">{formData.mobile.length}/10 digits</p>
           </div>
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Email Address</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none" placeholder="email@example.com" />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} placeholder="email@example.com" />
           </div>
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Preferred Visit Date *</label>
-            <input type="date" name="preferredDate" value={formData.preferredDate} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
+            <input type="date" name="preferredDate" value={formData.preferredDate} onChange={handleChange} required className={inputClass} />
           </div>
           <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Message (Optional)</label>
-            <textarea name="message" value={formData.message} onChange={handleChange} rows={3} className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none resize-none" placeholder="Any specific requirements or questions?" />
+            <textarea name="message" value={formData.message} onChange={handleChange} rows={3} className={`${inputClass} resize-none`} placeholder="Any specific requirements or questions?" />
           </div>
-          <motion.button type="submit" className="w-full gold-btn py-3.5 text-lg" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            Book My Free Trial
+          {error && <p className="text-red-400 text-sm">{error}</p>}
+          <p className="text-gray-500 text-xs">
+            Details will be sent to {CONTACT.email} and WhatsApp {CONTACT.phoneDisplay}.
+          </p>
+          <motion.button type="submit" disabled={loading} className="w-full gold-btn py-3.5 text-lg disabled:opacity-60" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            {loading ? 'Booking...' : 'Book My Free Trial'}
           </motion.button>
         </motion.form>
       </div>

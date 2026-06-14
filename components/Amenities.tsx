@@ -61,25 +61,27 @@ const amenities = [
   },
 ];
 
-export default function Amenities({ compact = false }: { compact?: boolean }) {
+export default function Amenities({ compact = false, hideHeader = false }: { compact?: boolean; hideHeader?: boolean }) {
   const displayItems = compact ? amenities.slice(0, 6) : amenities;
 
   return (
     <section className="section-padding bg-gradient-to-b from-[#141c28] to-[#0a0e14]">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">PREMIUM FEATURES</p>
-          <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Our Amenities</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            At RAJ STUDY HUB, our amenities are carefully designed to provide students with comfort, convenience, security, and a distraction-free atmosphere.
-          </p>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
-        </motion.div>
+        {!hideHeader && (
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">PREMIUM FEATURES</p>
+            <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Our Amenities</h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              At RAJ STUDY HUB, our amenities are carefully designed to provide students with comfort, convenience, security, and a distraction-free atmosphere.
+            </p>
+            <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
+          </motion.div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayItems.map((amenity, index) => (

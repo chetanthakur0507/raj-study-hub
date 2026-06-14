@@ -17,7 +17,7 @@ export default function AboutPage() {
         subtitle="A vision built with love, respect, and purpose"
         image={IMAGES.about2}
       />
-      <AboutUs />
+      <AboutUs hideHeader />
     </PageLayout>
   );
 }

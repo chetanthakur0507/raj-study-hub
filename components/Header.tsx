@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV_LINKS } from '@/lib/constants';
+import Image from 'next/image';
+import { LOGO, NAV_LINKS, SITE } from '@/lib/constants';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +19,22 @@ export default function Header() {
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/">
-          <motion.div
-            className="text-xl md:text-2xl font-black bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 bg-clip-text text-transparent cursor-pointer"
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <motion.div whileHover={{ scale: 1.05 }} className="relative w-10 h-10 md:w-11 md:h-11 flex-shrink-0">
+            <Image
+              src={LOGO}
+              alt={`${SITE.name} logo`}
+              fill
+              className="object-contain rounded-lg"
+              priority
+            />
+          </motion.div>
+          <motion.span
+            className="text-lg md:text-xl font-black bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 bg-clip-text text-transparent"
             whileHover={{ scale: 1.03 }}
           >
-            RAJ STUDY HUB
-          </motion.div>
+            {SITE.name}
+          </motion.span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-0.5">

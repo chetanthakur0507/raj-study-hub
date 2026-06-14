@@ -17,7 +17,7 @@ export default function ContactPage() {
         subtitle="Visit us, call us, or send us a message"
         image={IMAGES.workspace}
       />
-      <ContactUs />
+      <ContactUs hideHeader />
     </PageLayout>
   );
 }

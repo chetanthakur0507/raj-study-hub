@@ -20,11 +20,16 @@
   --font-display: var(--font-playfair);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: linear-gradient(180deg, #0a0e14 0%, #141c28 50%, #0a0e14 100%);
-  background-attachment: fixed;
+  background: #0a0e14;
   color: var(--foreground);
   min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 h1, h2, h3 {
@@ -109,7 +114,53 @@ h1, h2, h3 {
 }
 
 .premium-card {
-  @apply bg-gradient-to-br from-gray-900/80 to-slate-900/80 rounded-2xl border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300 backdrop-blur-sm;
+  @apply bg-gradient-to-br from-gray-900/90 to-slate-900/90 rounded-2xl border border-yellow-400/20 hover:border-yellow-400/40 transition-colors duration-300;
+}
+
+.hero-section {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.hero-slide {
+  transition: opacity 1s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.hero-slide-img {
+  transition: opacity 1s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.scroll-indicator {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.gallery-img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-slide,
+  .hero-slide-img,
+  .scroll-indicator {
+    transition: none;
+    animation: none;
+  }
 }
 
 .gold-btn {

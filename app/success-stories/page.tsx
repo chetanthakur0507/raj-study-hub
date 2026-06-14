@@ -17,7 +17,7 @@ export default function SuccessStoriesPage() {
         subtitle="Real achievements from our study community"
         image={IMAGES.about1}
       />
-      <SuccessStories />
+      <SuccessStories hideHeader />
     </PageLayout>
   );
 }

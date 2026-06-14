@@ -17,7 +17,7 @@ export default function FAQPage() {
         subtitle="Find answers to common questions"
         image={IMAGES.focus}
       />
-      <FAQ />
+      <FAQ hideHeader />
     </PageLayout>
   );
 }

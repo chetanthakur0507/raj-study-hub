@@ -17,7 +17,7 @@ export default function BookTrialPage() {
         subtitle="Experience our facilities firsthand"
         image={IMAGES.hero}
       />
-      <BookFreeTrial />
+      <BookFreeTrial hideHeader />
     </PageLayout>
   );
 }

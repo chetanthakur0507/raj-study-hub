@@ -17,7 +17,7 @@ export default function GalleryPage() {
         subtitle="Explore our premium study spaces"
         image={IMAGES.library}
       />
-      <Gallery />
+      <Gallery hideHeader />
     </PageLayout>
   );
 }
