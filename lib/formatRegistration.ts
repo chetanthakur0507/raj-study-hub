@@ -12,7 +12,6 @@ export interface RegistrationData {
   aadharNo: string;
   address: string;
   exam: string;
-  hasPhoto: boolean;
 }
 
 export function formatRegistrationMessage(data: RegistrationData): string {
@@ -35,7 +34,6 @@ export function formatRegistrationMessage(data: RegistrationData): string {
     `📚 *Admission Details*`,
     `• Exam/Course: ${data.exam}`,
     `• Address: ${data.address}`,
-    `• Photo Uploaded: ${data.hasPhoto ? 'Yes' : 'No'}`,
     '',
     `📅 Submitted: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
   ];
@@ -67,7 +65,6 @@ export function formatRegistrationEmailHtml(data: RegistrationData): string {
       <table style="width:100%;border-collapse:collapse;">
         <tr><td style="padding:6px;font-weight:bold;">Exam/Course</td><td style="padding:6px;">${data.exam}</td></tr>
         <tr style="background:#f9f9f9;"><td style="padding:6px;font-weight:bold;">Address</td><td style="padding:6px;">${data.address}</td></tr>
-        <tr><td style="padding:6px;font-weight:bold;">Photo Uploaded</td><td style="padding:6px;">${data.hasPhoto ? 'Yes' : 'No'}</td></tr>
       </table>
       <p style="color:#666;font-size:12px;margin-top:20px;">
         Submitted on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
@@ -83,5 +80,5 @@ export function getWhatsAppUrl(message: string): string {
 export function getMailtoUrl(data: RegistrationData): string {
   const subject = encodeURIComponent(`New Registration — ${data.name} | ${SITE.name}`);
   const body = encodeURIComponent(formatRegistrationMessage(data));
-  return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+  return `mailto:${CONTACT.emailDisplay}?subject=${subject}&body=${body}`;
 }

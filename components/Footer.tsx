@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { CONTACT, SITE } from '@/lib/constants';
+import Image from 'next/image';
+import { CONTACT, GOOGLE_REVIEWS_URL, LOGO, SITE } from '@/lib/constants';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,9 +18,14 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           <div>
-            <h3 className="text-xl font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent mb-4">
-              {SITE.name}
-            </h3>
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
+              <div className="relative w-10 h-10 flex-shrink-0">
+                <Image src={LOGO} alt={`${SITE.name} logo`} fill className="object-contain rounded-lg" />
+              </div>
+              <span className="text-lg font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent group-hover:opacity-90">
+                {SITE.name}
+              </span>
+            </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">{SITE.tagline}</p>
             <p className="text-gray-500 text-sm">{CONTACT.address}</p>
           </div>
@@ -76,35 +82,49 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-yellow-400 transition"
                 >
-                  💬 WhatsApp
+                  💬 WhatsApp: {CONTACT.whatsappDisplay}
                 </a>
               </li>
-               <li>
+              <li>
                 <a
-                  href={`https://www.instagram.com/rajstudyhub?igsh=NmV4OWZtZTEzcHY=`}
+                  href="https://www.instagram.com/rajstudyhub?igsh=NmV4OWZtZTEzcHY="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-yellow-400 transition"
                 >
-                   ♾️ Instagram
+                  ♾️ Instagram
                 </a>
               </li>
               <li>
-                <a href={`mailto:${CONTACT.email}`} className="hover:text-yellow-400 transition">
-                  📧 {CONTACT.email}
+                <a href={`mailto:${CONTACT.emailDisplay}`} className="hover:text-yellow-400 transition">
+                  📧 {CONTACT.emailDisplay}
                 </a>
               </li>
-              <li>⏰ {CONTACT.timings}</li>
+              <li>⏰ Open {CONTACT.timings}</li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-yellow-400/20 pt-8 text-center text-gray-500 text-sm">
+        <div className="border-t border-yellow-400/20 pt-8 text-center text-gray-500 text-sm space-y-3">
           <p>
             &copy; {currentYear} {SITE.name}. All rights reserved. | Dedicated to Shri Raj Kumar Singh
           </p>
-          <p> Website is designed and developed by  <a href="https://chetanthakur.tech" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:underline">Chetan Thakur</a></p>
-          
+          <p>
+            <a
+              href={GOOGLE_REVIEWS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-yellow-400 hover:underline font-semibold"
+            >
+              ⭐ Read Our Google Reviews
+            </a>
+          </p>
+          <p>
+            Website is designed and developed by{' '}
+            <a href="https://chetanthakur.tech" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:underline">
+              Chetan Thakur
+            </a>
+          </p>
         </div>
       </div>
     </motion.footer>

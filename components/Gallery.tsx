@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const gallery = [
   { id: 1, category: 'Study Hall', image: '/library.jpeg', title: 'Main Study Hall' },
@@ -11,15 +11,29 @@ const gallery = [
   { id: 4, category: 'Library', image: '/our facilities.png', title: 'Our Facilities' },
   { id: 5, category: 'Library', image: '/attendance tracking.png', title: 'Attendance Tracking' },
   { id: 6, category: 'Library', image: '/track daily activity.png', title: 'Tracking Daily Activity' },
-  { id: 7, category: 'Study Hall', image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop&q=80', title: 'Premium Study Space' },
-  { id: 8, category: 'Workspace', image: 'https://images.unsplash.com/photo-1664560724581-e3b068a0a376?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGNvbWZvcnRhYmxlJTIwY2hhaXJ8ZW58MHx8MHx8fDA%3D', title: 'Comfortable Seating' },
-  
+ 
 ];
+
+type LightboxItem = { image: string; title: string };
 
 export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [lightbox, setLightbox] = useState<LightboxItem | null>(null);
   const categories = ['All', 'Study Hall', 'Reading', 'Workspace', 'Library'];
   const filtered = selectedCategory === 'All' ? gallery : gallery.filter((g) => g.category === selectedCategory);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [lightbox]);
 
   return (
     <section className="section-padding bg-gradient-to-b from-[#0a0e14] to-[#141c28]">
@@ -28,7 +42,7 @@ export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }
           <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="text-yellow-400 text-sm font-bold tracking-widest mb-3">OUR SPACES</p>
             <h2 className="text-4xl md:text-5xl font-black gold-gradient-text mb-4">Gallery</h2>
-            <p className="text-gray-300">Explore our premium study facilities</p>
+            <p className="text-gray-300">Explore our premium study facilities — tap any photo to view full size</p>
             <div className="h-1 w-20 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mt-6" />
           </motion.div>
         )}
@@ -50,10 +64,13 @@ export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((item, index) => (
-            <motion.div
+          {filtered.map((item) => (
+            <motion.button
               key={item.id}
-              className="relative group rounded-2xl overflow-hidden h-64 border border-yellow-400/10 hover:border-yellow-400/40 transition-colors"
+              type="button"
+              onClick={() => setLightbox({ image: item.image, title: item.title })}
+              className="relative group rounded-2xl overflow-hidden h-64 border border-yellow-400/10 hover:border-yellow-400/40 transition-colors text-left cursor-zoom-in"
+              whileHover={{ scale: 1.02 }}
             >
               <img
                 src={item.image}
@@ -68,10 +85,37 @@ export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }
                   <p className="text-yellow-400 text-sm">{item.category}</p>
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.title}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-4 right-4 text-white/80 hover:text-yellow-400 text-3xl font-bold z-10"
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div className="max-w-6xl w-full max-h-[90vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightbox.image}
+              alt={lightbox.title}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg"
+            />
+            <p className="text-yellow-400 font-bold mt-4 text-center">{lightbox.title}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

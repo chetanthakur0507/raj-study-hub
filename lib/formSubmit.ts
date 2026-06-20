@@ -1,6 +1,6 @@
 import { CONTACT } from './constants';
 
-const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${CONTACT.email}`;
+const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${CONTACT.formSubmitEmail}`;
 
 function appendFormSubmitMeta(formData: FormData, subject: string) {
   formData.append('_subject', subject);

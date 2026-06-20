@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { CONTACT, SITE } from '@/lib/constants';
-import { notifyOwnerWhatsApp, submitToFormSubmit } from '@/lib/formSubmit';
+import { submitToFormSubmit } from '@/lib/formSubmit';
 
 const assistanceItems = [
   'New Admissions',
@@ -30,8 +30,8 @@ export default function ContactUs({ hideHeader = false }: { hideHeader?: boolean
   const contactInfo = [
     { icon: '📍', title: 'Address', details: CONTACT.address, link: 'https://www.google.com/maps/search/?api=1&query=RAJ+STUDY+HUB+Dhakia' },
     { icon: '📞', title: 'Phone', details: CONTACT.phoneDisplay, link: `tel:${CONTACT.phone}` },
-    { icon: '💬', title: 'WhatsApp', details: CONTACT.phoneDisplay, link: `https://wa.me/${CONTACT.whatsapp}` },
-    { icon: '✉️', title: 'Email', details: CONTACT.email, link: `mailto:${CONTACT.email}` },
+    { icon: '💬', title: 'WhatsApp', details: CONTACT.whatsappDisplay, link: `https://wa.me/${CONTACT.whatsapp}` },
+    { icon: '✉️', title: 'Email', details: CONTACT.emailDisplay, link: `mailto:${CONTACT.emailDisplay}` },
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,17 +45,6 @@ export default function ContactUs({ hideHeader = false }: { hideHeader?: boolean
 
     setLoading(true);
 
-    const whatsappMessage = [
-      `📩 *New Contact Message — ${SITE.name}*`,
-      '',
-      `• Name: ${formData.name}`,
-      `• Phone: ${formData.phone}`,
-      `• Email: ${formData.email}`,
-      `• Message: ${formData.message}`,
-      '',
-      `📅 ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
-    ].join('\n');
-
     try {
       await submitToFormSubmit(
         {
@@ -67,10 +56,9 @@ export default function ContactUs({ hideHeader = false }: { hideHeader?: boolean
         },
         `Contact Message — ${formData.name} | ${SITE.name}`
       );
-      notifyOwnerWhatsApp(whatsappMessage);
       setSubmitted(true);
     } catch {
-      setError('Failed to send message. Please try WhatsApp directly.');
+      setError('Failed to send message. Please try again or call us directly.');
     } finally {
       setLoading(false);
     }
@@ -136,7 +124,7 @@ export default function ContactUs({ hideHeader = false }: { hideHeader?: boolean
                 <div>
                   <div className="text-5xl text-yellow-400 mb-4">✓</div>
                   <h3 className="text-2xl font-bold text-yellow-400 mb-2">Message Sent!</h3>
-                  <p className="text-gray-300">Sent to email, WhatsApp & mobile. We will get back to you shortly.</p>
+                  <p className="text-gray-300">Your message has been sent via email. We will get back to you shortly.</p>
                 </div>
               </div>
             ) : (

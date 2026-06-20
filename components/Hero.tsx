@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { HERO_SLIDES, SITE } from '@/lib/constants';
+import { HERO_SLIDES, CONTACT, SITE } from '@/lib/constants';
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -69,7 +69,7 @@ export default function Hero() {
             {[
               { label: 'Digital Access', value: 'QR Entry' },
               { label: 'Environment', value: 'AC + WiFi' },
-              { label: 'Timings', value: '7AM - 7PM' },
+              { label: 'Timings', value: CONTACT.timings },
             ].map((stat) => (
               <div key={stat.label} className="premium-card p-4 text-center">
                 <p className="text-yellow-400 font-black text-lg">{stat.value}</p>

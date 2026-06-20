@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { CONTACT, SITE } from '@/lib/constants';
-import { notifyOwnerWhatsApp, submitFormDataToFormSubmit } from '@/lib/formSubmit';
-import { formatRegistrationMessage, type RegistrationData } from '@/lib/formatRegistration';
+import { BOOKMISEAT, CONTACT, SITE } from '@/lib/constants';
+import { submitToFormSubmit } from '@/lib/formSubmit';
 
 const initialFormData = {
   name: '',
@@ -18,7 +17,6 @@ const initialFormData = {
   aadharNo: '',
   address: '',
   exam: '',
-  
 };
 
 const inputClass =
@@ -30,8 +28,6 @@ function restrictDigits(value: string, maxLen: number) {
 
 export default function RegistrationForm({ hideHeader = false }: { hideHeader?: boolean }) {
   const [formData, setFormData] = useState(initialFormData);
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -51,27 +47,9 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      setError('Please upload an image file (JPG, PNG, etc.)');
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Photo size must be under 5MB');
-      return;
-    }
-    setError('');
-    setPhoto(file);
-    setPhotoPreview(URL.createObjectURL(file));
-  };
-
   const resetForm = () => {
     setSubmitted(false);
     setFormData(initialFormData);
-    setPhoto(null);
-    setPhotoPreview(null);
     setError('');
   };
 
@@ -91,30 +69,20 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
       setError('Aadhaar number must be exactly 12 digits');
       return;
     }
-    if (!photo) {
-      setError('Please upload your photo');
-      return;
-    }
 
     setLoading(true);
 
-    const registrationData: RegistrationData = { ...formData, hasPhoto: true };
-    const whatsappMessage = formatRegistrationMessage(registrationData);
-
-    const payload = new FormData();
-    Object.entries(formData).forEach(([key, value]) => payload.append(key, value));
-    payload.append('form_type', 'Registration');
-    payload.append('attachment', photo);
-
     try {
-      await submitFormDataToFormSubmit(
-        payload,
+      await submitToFormSubmit(
+        {
+          form_type: 'Registration',
+          ...formData,
+        },
         `New Registration — ${formData.name} | ${SITE.name}`
       );
-      notifyOwnerWhatsApp(whatsappMessage);
       setSubmitted(true);
     } catch {
-      setError('Submission failed. Please try again or contact us directly on WhatsApp.');
+      setError('Submission failed. Please try again or contact us directly.');
     } finally {
       setLoading(false);
     }
@@ -129,7 +97,9 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            <div className="text-5xl text-yellow-400 mb-4">✓</div>
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-4xl text-green-400">✓</span>
+            </div>
             <h2 className="text-3xl font-black text-yellow-400 mb-4">Registration Successful!</h2>
             <p className="text-gray-300 mb-2">
               Welcome to RAJ STUDY HUB, <strong className="text-white">{formData.name}</strong>!
@@ -139,9 +109,38 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
               <strong className="text-yellow-400">{formData.mobile}</strong> for seat confirmation.
             </p>
             <p className="text-gray-500 text-sm mb-6">
-              Owner: {CONTACT.phoneDisplay} | {CONTACT.email}
+              Call: {CONTACT.phoneDisplay} | {CONTACT.emailDisplay}
             </p>
-            <motion.button onClick={resetForm} className="gold-btn" whileHover={{ scale: 1.05 }}>
+
+            <div className="premium-card p-6 mb-6 bg-yellow-400/5">
+              <h3 className="text-lg font-bold text-yellow-400 mb-3">Download BookMiSeat App</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                Manage your seat bookings, track attendance, and stay updated — all from the BookMiSeat app.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href={BOOKMISEAT.playStore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black border border-yellow-400/30 rounded-xl hover:border-yellow-400 transition"
+                >
+                  <svg className="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.6 3 21.09 3 20.5M16.81 15.12L6.05 21.34L14.54 12.85L16.81 15.12M20.16 10.81C20.5 11.08 20.75 11.5 20.75 12C20.75 12.5 20.53 12.9 20.18 13.18L17.89 14.5L15.39 12L17.89 9.5L20.16 10.81M6.05 2.66L16.81 8.88L14.54 11.15L6.05 2.66Z" />
+                  </svg>
+                  <span className="text-white font-semibold text-sm">Google Play</span>
+                </a>
+                <a
+                  href={BOOKMISEAT.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 gold-btn text-sm"
+                >
+                  Visit BookMiSeat
+                </a>
+              </div>
+            </div>
+
+            <motion.button onClick={resetForm} className="text-yellow-400 hover:text-yellow-300 text-sm font-semibold" whileHover={{ scale: 1.05 }}>
               Submit Another Form
             </motion.button>
           </motion.div>
@@ -268,20 +267,6 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-yellow-400 mb-2">Upload Photo *</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-400 file:text-black file:font-bold file:cursor-pointer"
-            />
-            {photoPreview && (
-              <img src={photoPreview} alt="Preview" className="mt-3 w-24 h-24 object-cover rounded-lg border border-yellow-400/30" loading="lazy" decoding="async" />
-            )}
-          </div>
-
-          <div>
             <label className="block text-sm font-bold text-yellow-400 mb-2">Address *</label>
             <textarea name="address" value={formData.address} onChange={handleChange} required rows={2} className={`${inputClass} resize-none`} placeholder="Your complete address" />
           </div>
@@ -291,16 +276,10 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
             <input type="text" name="exam" value={formData.exam} onChange={handleChange} required className={inputClass} placeholder="e.g. UPSC, NEET, SSC, Banking, etc." />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            
-            
-          </div>
-
           {error && (
             <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/30 rounded-lg px-4 py-3">{error}</p>
           )}
 
-          
           <motion.button
             type="submit"
             disabled={loading}

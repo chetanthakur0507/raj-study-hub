@@ -36,8 +36,8 @@ export default function PolicyLayout({ title, children }: PolicyLayoutProps) {
               </p>
               <p>
                 <span className="text-yellow-400">📧</span>{' '}
-                <a href={`mailto:${CONTACT.email}`} className="hover:text-yellow-400 transition">
-                  {CONTACT.email}
+                <a href={`mailto:${CONTACT.emailDisplay}`} className="hover:text-yellow-400 transition">
+                  {CONTACT.emailDisplay}
                 </a>
               </p>
             </div>

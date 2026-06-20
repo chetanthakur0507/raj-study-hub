@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { CONTACT } from '@/lib/constants';
 
 const faqData = [
-  { id: 1, question: 'What are the study hub timings?', answer: 'RAJ STUDY HUB is open from 07:00 AM to 07:00 PM (7AM - 7PM) daily.' },
+  { id: 1, question: 'What are the study hub timings?', answer: 'RAJ STUDY HUB is open 24×7 — study anytime that suits your schedule.' },
   { id: 2, question: 'Is a free trial available?', answer: 'Yes! You can book a free trial visit to experience our facilities firsthand before joining. Visit our Book Trial page to schedule your visit.' },
   { id: 3, question: 'Do you have WiFi?', answer: 'Yes, we provide high-speed Wi-Fi for online classes, research, practice tests, and educational resources.' },
   { id: 4, question: 'Is the study space air-conditioned?', answer: 'Absolutely! The entire facility is air-conditioned for a comfortable study environment throughout the year.' },

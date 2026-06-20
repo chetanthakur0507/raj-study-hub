@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { BOOKMISEAT, CONTACT, SITE } from '@/lib/constants';
-import { notifyOwnerWhatsApp, submitToFormSubmit } from '@/lib/formSubmit';
+import { BOOKMISEAT, SITE } from '@/lib/constants';
+import { submitToFormSubmit } from '@/lib/formSubmit';
 
 const inputClass =
   'w-full px-4 py-3 rounded-lg bg-gray-900 border border-yellow-400/20 text-gray-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none';
@@ -50,20 +50,6 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
 
     setLoading(true);
 
-    const whatsappMessage = [
-      `📅 *New Trial Booking — ${SITE.name}*`,
-      '',
-      `• Name: ${formData.name}`,
-      `• Mobile: ${formData.mobile}`,
-      `• Father's Name: ${formData.fatherName}`,
-      `• Father's Mobile: ${formData.fatherMobile}`,
-      `• Email: ${formData.email || 'Not provided'}`,
-      `• Preferred Date: ${formData.preferredDate}`,
-      `• Message: ${formData.message || 'None'}`,
-      '',
-      `📅 ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
-    ].join('\n');
-
     try {
       await submitToFormSubmit(
         {
@@ -78,10 +64,9 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
         },
         `Trial Booking — ${formData.name} | ${SITE.name}`
       );
-      notifyOwnerWhatsApp(whatsappMessage);
       setSubmitted(true);
     } catch {
-      setError('Booking failed. Please contact us on WhatsApp.');
+      setError('Booking failed. Please contact us directly.');
     } finally {
       setLoading(false);
     }
@@ -101,7 +86,7 @@ export default function BookFreeTrial({ hideHeader = false }: { hideHeader?: boo
             </div>
             <h2 className="text-3xl font-black text-yellow-400 mb-4">Trial Booked Successfully!</h2>
             <p className="text-gray-300 mb-2">
-              Thank you, <strong className="text-white">{formData.name}</strong>! Your request was sent via email & WhatsApp.
+              Thank you, <strong className="text-white">{formData.name}</strong>! Your request was sent successfully via email.
             </p>
             <p className="text-gray-400 mb-8">
               Our team will contact you at <strong className="text-yellow-400">{formData.mobile}</strong> to confirm your visit.
