@@ -9,7 +9,7 @@ const testimonials = [
   { id: 2, name: 'Ranveer', achievement: '(Civil Engineer) Railway Aspirant', photo: '/review 9.jpeg', quote: 'AC, WiFi, charging points — everything I needed was here. The disciplined atmosphere made a huge difference in my focus.' },
   { id: 3, name: 'Praveen', achievement: 'SSC CGL Aspirant', photo: '/review 7.jpeg', quote: 'QR entry and CCTV security gave me peace of mind. I could study without worrying about anything else.' },
   { id: 4, name: 'Rohit Suryavanshi', achievement: 'SSC Aspirant', photo: '/review 6.jpeg', quote: 'The community of focused learners here motivates me every day. Best decision for my exam preparation.' },
-  { id: 5, name: 'Prasoon', achievement: 'DMLT Student', photo: '/review boy 5.jpeg', quote: 'Clean, quiet, and well-managed. Nitin Sir has built something special in memory of his father.' },
+  { id: 5, name: 'Prasoon', achievement: 'DMLT Student', photo: '/review boy 5.jpeg', quote: 'Clean, quiet, and well-managed. Nitin has built something special in memory of his father.' },
   { id: 6, name: 'Rohit', achievement: 'SSC GD/Airforce Aspirant', photo: '/review boy 4.jpeg', quote: 'Discipline, cleanliness aur focus — teen cheezein jo yahan automatically milti hain. Meri sabse acchi choice thi.' },
 ];
 
@@ -17,8 +17,7 @@ const extraReviews = [
   
   { id: 7, name: 'Sanjay', achievement: 'Competitive Exam', photo: '/review boy 2.jpeg', quote: '24×7 access aur shant environment ne meri preparation ko naya direction diya. Bahut shukriya RAJ STUDY HUB ko.' },
   { id: 8, name: 'Prashant', achievement: 'NDA/Airforce Aspirant', photo: '/review boy 3.jpeg', quote: 'Digital attendance aur comfortable seating — yahan padhai karna easy ho jata hai. Best study library in Dhakia.' },
-  { id: 9, name: 'Rohit', achievement: 'SSC GD/Airforce Aspirant', photo: '/review boy 4.jpeg', quote: 'Discipline, cleanliness aur focus — teen cheezein jo yahan automatically milti hain. Meri sabse acchi choice thi.' },
-   {id: 10, name: 'Deependra Upadhyay', achievement: 'NDA(Defence Exams)', photo: '/review boy 1.jpeg', quote: 'Discipline, cleanliness aur focus — teen cheezein jo yahan automatically milti hain. Meri sabse acchi choice thi.' },
+  {id: 9, name: 'Deependra Upadhyay', achievement: 'NDA(Defence Exams)', photo: '/review boy 1.jpeg', quote: 'Environment,location,cleanliness  — teen cheezein hai environment and location bahut badhiya hai Raj Study Hub ki.' },
 ];
 
 export default function SuccessStories({ hideHeader = false }: { hideHeader?: boolean }) {

@@ -116,15 +116,10 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-yellow-400 hover:underline font-semibold"
             >
-              ⭐ Read Our Google Reviews
+              ⭐ Rate Us On Google Map
             </a>
           </p>
-          <p>
-            Website is designed and developed by{' '}
-            <a href="https://chetanthakur.tech" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:underline">
-              Chetan Thakur
-            </a>
-          </p>
+          
         </div>
       </div>
     </motion.footer>
