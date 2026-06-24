@@ -110,6 +110,34 @@ export default function AboutUs({ compact = false, hideHeader = false }: { compa
             </div>
 
             <motion.div
+  className="premium-card p-8 mb-16 text-center border-yellow-400/30"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+>
+  <img
+    src="/raj kumar singh.png"
+    alt="Shri Raj Kumar Singh"
+    className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-yellow-400 shadow-lg mb-6"
+  />
+
+  <h3 className="text-3xl font-black text-yellow-400 mb-2">
+    Shri Raj Kumar Singh
+  </h3>
+
+  <p className="text-gray-400 mb-4">
+    In Loving Memory
+  </p>
+
+  <p className="text-gray-300 leading-relaxed max-w-3xl mx-auto">
+    RAJ STUDY HUB is dedicated to the loving memory of Shri Raj Kumar Singh.
+    His values, dedication, and vision continue to inspire us every day.
+    This institution stands as a tribute to his legacy and commitment to
+    education and personal growth.
+  </p>
+</motion.div>
+
+            <motion.div
               className="premium-card p-10 text-center border-yellow-400/30"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}

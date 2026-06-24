@@ -17,11 +17,10 @@ const gallery = [
 type LightboxItem = { image: string; title: string };
 
 export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }) {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  
   const [lightbox, setLightbox] = useState<LightboxItem | null>(null);
-  const categories = ['All', 'Study Hall', 'Reading', 'Workspace', 'Library'];
-  const filtered = selectedCategory === 'All' ? gallery : gallery.filter((g) => g.category === selectedCategory);
-
+  const filtered = gallery;
+  
   useEffect(() => {
     if (!lightbox) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -47,21 +46,7 @@ export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }
           </motion.div>
         )}
 
-        <div className="flex justify-center gap-3 mb-10 flex-wrap">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-bold transition ${
-                selectedCategory === cat
-                  ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-black'
-                  : 'bg-gray-900 text-gray-400 border border-gray-700 hover:border-yellow-400/50 hover:text-yellow-400'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((item) => (
@@ -82,7 +67,7 @@ export default function Gallery({ hideHeader = false }: { hideHeader?: boolean }
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-5">
                 <div>
                   <h3 className="text-white font-bold">{item.title}</h3>
-                  <p className="text-yellow-400 text-sm">{item.category}</p>
+                 <p className="text-yellow-400 text-sm">RAJ STUDY HUB</p>
                 </div>
               </div>
             </motion.button>
