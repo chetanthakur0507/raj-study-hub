@@ -25,6 +25,7 @@ export default function Header() {
               src={LOGO}
               alt={`${SITE.name} logo`}
               fill
+              sizes="(max-width: 768px) 40px, 44px"
               className="object-contain rounded-lg"
               priority
             />

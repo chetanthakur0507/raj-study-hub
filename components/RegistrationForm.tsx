@@ -129,14 +129,6 @@ export default function RegistrationForm({ hideHeader = false }: { hideHeader?: 
                   </svg>
                   <span className="text-white font-semibold text-sm">Google Play</span>
                 </a>
-                <a
-                  href={BOOKMISEAT.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 gold-btn text-sm"
-                >
-                  Visit BookMiSeat
-                </a>
               </div>
             </div>
 

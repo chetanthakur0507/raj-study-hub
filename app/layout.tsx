@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
 import './globals.css';
 import FloatingButtons from '@/components/FloatingButtons';
+import CustomCursor from '@/components/CustomCursor';
 import { SITE } from '@/lib/constants';
 
 const playfair = Playfair_Display({
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-inter)]">
+        <CustomCursor />
         {children}
         <FloatingButtons />
       </body>
